@@ -1,4 +1,8 @@
 <?PHP
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 $time = microtime();
 $time = explode(' ', $time);
 $start = $time[1] + $time[0];
@@ -38,21 +42,22 @@ $start = $time[1] + $time[0];
 
       $query = $db->query('SELECT * FROM visitor_log');
 
-      $visits = 1;
+      $visits = 0;
       $found = false;
       foreach ($query as $row) {
-  if ($row['ip'] == $ip_address) {
-    $visits = $row['visits'];
+      if ($row['ip'] == $ip_address) {
+          $visits = $row['visits'];
           $found = true;
-  }
-  echo $row['ip'] . ': ' . $row['visits'] . '<br>';
       }
+      echo $row['ip'] . ': ' . $row['visits'] . '<br>';
+      }
+      $visits++;
       if ($found) {
-  $save = $db->prepare("UPDATE visitor_log SET visits=? WHERE ip=? LIMIT 1");
+      $save = $db->prepare("UPDATE visitor_log SET visits=? WHERE ip=? LIMIT 1");
       } else {
         $save = $db->prepare("INSERT INTO visitor_log (visits, ip) VALUES (?, ?)");
       }
-      $save->execute(array(++$visits, $ip_address));
+      $save->execute(array($visits, $ip_address));
 
       # close connection
       $db = null;
@@ -63,8 +68,8 @@ $start = $time[1] + $time[0];
     echo '<h1>Memcached test:</h1>';
     $m = new Memcached();
     $m->addServer('localhost', 11211);
-    $m->set('string', 'Memcached is working :)');
-    var_dump($m->get('string'));
+    $m->set($ip_address, $visits);
+    echo 'Number of hits from your IP via memcached: ' . $m->get($ip_address);
     echo '<br>';
 
     echo '<h1>Varnish test: </h1><a href="/?purge=yes">Purge cache</a><br>';
@@ -85,4 +90,4 @@ $start = $time[1] + $time[0];
       echo "<br>" . date("D M j G:i:s T Y") . "<br>";
     ?>
   </body>
-</html>
+</html
