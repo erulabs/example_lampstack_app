@@ -19,12 +19,13 @@ $start = $time[1] + $time[0];
       #page { border: 1px solid #CCC; width: 500px; margin: 100px auto 0; padding: 30px; background: #323232; }
       a, a:link, a:visited { color: #CCC; }
       .error { color: #222; }
+      td { text-align: center; }
     </style>
   </head>
   <body>
 
     <h1>System info</h1>
-    <table>
+    <center><table>
     <?PHP
     echo '<tr><td><b>PHP:</b></td><td>' . exec("php -v | head -1") . '</td></tr>';
     echo '<tr><td><b>MySQL:</b></td><td>' . exec("mysql -V") . '</td></tr>';
@@ -32,7 +33,7 @@ $start = $time[1] + $time[0];
     echo '<tr><td><b>Varnish:</b></td><td>' . exec("varnishd -V 2>&1 | grep varnish") . '</td></tr>';
     echo '<b>Memcached:</b></td><td>' . exec("memcached -h | head -1 | awk '{print $2}'") . '</td></tr>';
     ?>
-    </table>
+    </table></center>
 
     <h1>MySQL test:</h1>
     <?PHP
