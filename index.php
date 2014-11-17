@@ -14,17 +14,25 @@ $start = $time[1] + $time[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
+    <style>
+      body { background: #303030; text-align: center; color: white; }
+      #page { border: 1px solid #CCC; width: 500px; margin: 100px auto 0; padding: 30px; background: #323232; }
+      a, a:link, a:visited { color: #CCC; }
+      .error { color: #222; }
+    </style>
   </head>
   <body>
 
     <h1>System info</h1>
+    <table>
     <?PHP
-    echo '<b>PHP</b>: ' . exec("php -v | head -1") . '<br>';
-    echo '<b>MySQL</b>: ' . exec("mysql -V") . '<br>';
-    echo '<b>Apache2</b>: ' . exec("apache2 -v | grep version") . '<br>';
-    echo '<b>Varnish</b>: ' . exec("varnishd -V 2>&1 | grep varnish") . '<br>';
-    echo '<b>Memcached</b>: ' . exec("memcached -h | head -1 | awk '{print $2}'") . '<br>';
+    echo '<tr><td><b>PHP:</b></td><td>' . exec("php -v | head -1") . '</td></tr>';
+    echo '<tr><td><b>MySQL:</b></td><td>' . exec("mysql -V") . '</td></tr>';
+    echo '<tr><td><b>Apache2:</b></td><td>' . exec("apache2 -v | grep version") . '</td></tr>';
+    echo '<tr><td><b>Varnish:</b></td><td>' . exec("varnishd -V 2>&1 | grep varnish") . '</td></tr>';
+    echo '<b>Memcached:</b></td><td>' . exec("memcached -h | head -1 | awk '{print $2}'") . '</td></tr>';
     ?>
+    </table>
 
     <h1>MySQL test:</h1>
     <?PHP
@@ -90,4 +98,4 @@ $start = $time[1] + $time[0];
       echo "<br>" . date("D M j G:i:s T Y") . "<br>";
     ?>
   </body>
-</html
+</html>
