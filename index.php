@@ -31,7 +31,7 @@ $start = $time[1] + $time[0];
     echo '<tr><td><b>MySQL:</b></td><td>' . exec("mysql -V") . '</td></tr>';
     echo '<tr><td><b>Apache2:</b></td><td>' . exec("apache2 -v | grep version") . '</td></tr>';
     echo '<tr><td><b>Varnish:</b></td><td>' . exec("varnishd -V 2>&1 | grep varnish") . '</td></tr>';
-    echo '<b>Memcached:</b></td><td>' . exec("memcached -h | head -1 | awk '{print $2}'") . '</td></tr>';
+    echo '<tr><td><b>Memcached:</b></td><td>' . exec("memcached -h | head -1 | awk '{print $2}'") . '</td></tr>';
     ?>
     </table></center>
 
